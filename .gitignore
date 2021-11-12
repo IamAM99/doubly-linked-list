@@ -1,6 +1,9 @@
 # vscode
 .vscode
 
+# main file
+main
+
 # Prerequisites
 *.d
 
