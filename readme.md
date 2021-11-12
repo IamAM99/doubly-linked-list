@@ -15,7 +15,7 @@ Deadline: Saturday, 22 Aban - 23:59
 Hello
 # Introduction
 In this homework you should implement linked-list data structure with c++.
-![](./staff/linkedlist.png)
+![](./pics/linkedlist.png)
 # LinkedList Class
 This class represents each LinkedList. It has the following method and member variables.
 ```c++
