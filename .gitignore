@@ -1,3 +1,10 @@
+# aphw main files
+cpp/aphw3_unittest.cpp
+cpp/main.cpp
+
+# vscode
+.vscode
+
 # Prerequisites
 *.d
 
