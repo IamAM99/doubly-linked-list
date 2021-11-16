@@ -8,7 +8,7 @@ TARGET = main
 
 $(TARGET): $(OBJECTS)
 	$(CXX) $(LXXFLAGS) -o $(TARGET) $(OBJECTS) $(GTEST)
-./obj/linkedlist.o: ./cpp/linkedlist.cpp
+./obj/linkedlist.o: ./cpp/linkedlist.cpp ./h/linkedlist.h
 	$(CXX) $(CXXFLAGS) ./cpp/linkedlist.cpp -o ./obj/linkedlist.o
 ./obj/aphw3_unittest.o: ./cpp/aphw3_unittest.cpp
 	$(CXX) $(CXXFLAGS) ./cpp/aphw3_unittest.cpp -o ./obj/aphw3_unittest.o
