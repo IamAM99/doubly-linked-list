@@ -1,5 +1,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
+#include <ostream>
 
 class LinkedList {
 public:
@@ -7,10 +8,12 @@ public:
     public:
         Node();
         Node(double val);
+        ~Node();
         Node* next;
         Node* previous;
-        double getValue();
+        double getValue() const;
         void setValue(double val);
+        friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 
     private:
         double value;
