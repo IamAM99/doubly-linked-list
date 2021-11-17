@@ -54,12 +54,7 @@ LinkedList::LinkedList(std::initializer_list<double> list)
 LinkedList::LinkedList(const LinkedList& linked_list)
     : LinkedList()
 {
-    Node* item { linked_list.head };
-
-    for (int i {}; i < linked_list.getSize(); i++) {
-        this->push_back(item->getValue());
-        item = item->next;
-    }
+    this->extend(linked_list);
 }
 
 int LinkedList::getSize() const
@@ -155,4 +150,14 @@ double LinkedList::front() const
     if (!head)
         throw std::logic_error { "Couldn't call LinkedList::pop_front on an empty LinkedList." };
     return head->getValue();
+}
+
+void LinkedList::extend(const LinkedList& linked_list)
+{
+    Node* item { linked_list.head };
+
+    for (int i {}; i < linked_list.getSize(); i++) {
+        this->push_back(item->getValue());
+        item = item->next;
+    }
 }
