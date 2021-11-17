@@ -142,3 +142,17 @@ double LinkedList::pop_front()
     N--;
     return popped;
 }
+
+double LinkedList::back() const
+{
+    if (!tail)
+        throw std::logic_error { "Couldn't call LinkedList::back on an empty LinkedList." };
+    return tail->getValue();
+}
+
+double LinkedList::front() const
+{
+    if (!head)
+        throw std::logic_error { "Couldn't call LinkedList::pop_front on an empty LinkedList." };
+    return head->getValue();
+}

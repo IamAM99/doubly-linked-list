@@ -28,8 +28,8 @@ public:
     void push_front(double);
     double pop_back();
     double pop_front();
-    double back();
-    double front();
+    double back() const;
+    double front() const;
     bool empty();
     void clear();
     void show() const;
