@@ -114,3 +114,31 @@ void LinkedList::push_front(double item)
     }
     N++;
 }
+
+double LinkedList::pop_back()
+{
+    if (!tail)
+        throw std::logic_error { "Couldn't call LinkedList::pop_back on an empty LinkedList." };
+
+    double popped {};
+    popped = tail->getValue();
+    tail = tail->previous;
+    delete tail->next;
+    tail->next = nullptr;
+    N--;
+    return popped;
+}
+
+double LinkedList::pop_front()
+{
+    if (!head)
+        throw std::logic_error { "Couldn't call LinkedList::pop_front on an empty LinkedList." };
+
+    double popped {};
+    popped = head->getValue();
+    head = head->next;
+    delete head->previous;
+    head->previous = nullptr;
+    N--;
+    return popped;
+}
