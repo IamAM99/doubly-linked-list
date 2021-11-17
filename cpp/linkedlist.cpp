@@ -43,6 +43,30 @@ LinkedList::LinkedList()
     std::cout << "LinkedList default const" << std::endl;
 }
 
+LinkedList::LinkedList(std::initializer_list<double> list)
+    : LinkedList()
+{
+    std::cout << "LinkedList initializer const" << std::endl;
+    for (auto item : list)
+        this->push_back(item);
+}
+
+LinkedList::LinkedList(const LinkedList& linked_list)
+    : LinkedList()
+{
+    Node* item { linked_list.head };
+
+    for (int i {}; i < linked_list.getSize(); i++) {
+        this->push_back(item->getValue());
+        item = item->next;
+    }
+}
+
+int LinkedList::getSize() const
+{
+    return N;
+}
+
 LinkedList::~LinkedList()
 {
     // if (head == tail) {
@@ -55,31 +79,38 @@ LinkedList::~LinkedList()
     // }
 }
 
-LinkedList::LinkedList(std::initializer_list<double> list)
-    : LinkedList()
-{
-    std::cout << "LinkedList initializer const" << std::endl;
-    for (auto item : list) {
-        if (!head) {
-            head = new Node { item };
-            tail = head;
-        } else {
-            tail->next = new Node { item };
-            tail->next->previous = tail;
-            tail = tail->next;
-        }
-        N++;
-        // std::cout << N << "  ";
-        // std::cout << *tail << std::endl;
-    }
-}
-
 void LinkedList::show() const
 {
     Node* item { head };
-    for (size_t i {}; i < N; i++) {
+    for (int i {}; i < N; i++) {
         std::cout << *item << " ";
         item = item->next;
     }
     std::cout << std::endl;
+}
+
+void LinkedList::push_back(double item)
+{
+    if (!head) {
+        head = new Node { item };
+        tail = head;
+    } else {
+        tail->next = new Node { item };
+        tail->next->previous = tail;
+        tail = tail->next;
+    }
+    N++;
+}
+
+void LinkedList::push_front(double item)
+{
+    if (!head) {
+        head = new Node { item };
+        tail = head;
+    } else {
+        head->previous = new Node { item };
+        head->previous->next = head;
+        head = head->previous;
+    }
+    N++;
 }

@@ -33,11 +33,11 @@ public:
     bool empty();
     void clear();
     void show() const;
-    int getSize();
+    int getSize() const;
     void extend(const LinkedList&);
 
 private:
-    size_t N { 0 };
+    int N { 0 };
 
 public:
     Node* head;
