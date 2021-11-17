@@ -1,5 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
+#include <initializer_list>
+#include <iostream>
 #include <ostream>
 
 class LinkedList {
@@ -7,18 +9,19 @@ public:
     class Node {
     public:
         Node();
-        Node(double val);
+        Node(double);
         ~Node();
         Node* next;
         Node* previous;
         double getValue() const;
-        void setValue(double val);
+        void setValue(double);
         friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 
     private:
         double value;
     };
     LinkedList();
+    LinkedList(std::initializer_list<double>);
     LinkedList(const LinkedList&);
     ~LinkedList();
     void push_back(double);
@@ -29,12 +32,12 @@ public:
     double front();
     bool empty();
     void clear();
-    void show();
+    void show() const;
     int getSize();
     void extend(const LinkedList&);
 
 private:
-    int N { 0 };
+    size_t N { 0 };
 
 public:
     Node* head;
