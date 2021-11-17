@@ -10,7 +10,6 @@ public:
     public:
         Node();
         Node(double);
-        ~Node();
         Node* next;
         Node* previous;
         double getValue() const;
@@ -36,11 +35,10 @@ public:
     void show() const;
     int getSize() const;
     void extend(const LinkedList&);
-    // double operator[](size_t) const;
-    double& operator[](size_t);
+    double& operator[](int);
 
 private:
-    size_t N {};
+    int N {};
 
 public:
     Node* head;

@@ -12,14 +12,6 @@ LinkedList::Node::Node(double val)
 {
 }
 
-LinkedList::Node::~Node()
-{
-    // delete next;
-    // delete previous;
-    // next = nullptr;
-    // previous = nullptr;
-}
-
 double LinkedList::Node::getValue() const
 {
     return value;
@@ -45,13 +37,11 @@ LinkedList::LinkedList()
     : head { nullptr }
     , tail { nullptr }
 {
-    std::cout << "LinkedList default const" << std::endl;
 }
 
 LinkedList::LinkedList(std::initializer_list<double> list)
     : LinkedList()
 {
-    std::cout << "LinkedList initializer const" << std::endl;
     for (auto item : list)
         this->push_back(item);
 }
@@ -62,29 +52,14 @@ LinkedList::LinkedList(const LinkedList& linked_list)
     this->extend(linked_list);
 }
 
-int LinkedList::getSize() const
-{
-    return N;
-}
-
 LinkedList::~LinkedList()
 {
     this->clear();
 }
 
-void LinkedList::show() const
-{
-    Node* item { head };
-    for (size_t i {}; i < N; i++) {
-        std::cout << *item << " ";
-        item = item->next;
-    }
-    std::cout << std::endl;
-}
-
 void LinkedList::push_back(double item)
 {
-    if (!head) {
+    if (empty()) {
         head = new Node { item };
         tail = head;
     } else {
@@ -97,7 +72,7 @@ void LinkedList::push_back(double item)
 
 void LinkedList::push_front(double item)
 {
-    if (!head) {
+    if (empty()) {
         head = new Node { item };
         tail = head;
     } else {
@@ -110,7 +85,7 @@ void LinkedList::push_front(double item)
 
 double LinkedList::pop_back()
 {
-    if (!tail)
+    if (empty())
         throw std::logic_error { "Couldn't call LinkedList::pop_back on an empty LinkedList." };
 
     double popped {};
@@ -119,7 +94,7 @@ double LinkedList::pop_back()
         tail = tail->previous;
         delete tail->next;
         tail->next = nullptr;
-    } else {
+    } else { // this is the last tail
         delete tail;
         head = tail = nullptr;
     }
@@ -129,40 +104,35 @@ double LinkedList::pop_back()
 
 double LinkedList::pop_front()
 {
-    if (!head)
+    if (empty())
         throw std::logic_error { "Couldn't call LinkedList::pop_front on an empty LinkedList." };
 
     double popped {};
     popped = head->getValue();
-    head = head->next;
-    delete head->previous;
-    head->previous = nullptr;
+    if (head->next) {
+        head = head->next;
+        delete head->previous;
+        head->previous = nullptr;
+    } else { // this is the last head
+        delete head;
+        head = tail = nullptr;
+    }
     N--;
     return popped;
 }
 
 double LinkedList::back() const
 {
-    if (!tail)
+    if (N == 0)
         throw std::logic_error { "Couldn't call LinkedList::back on an empty LinkedList." };
     return tail->getValue();
 }
 
 double LinkedList::front() const
 {
-    if (!head)
-        throw std::logic_error { "Couldn't call LinkedList::pop_front on an empty LinkedList." };
+    if (N == 0)
+        throw std::logic_error { "Couldn't call LinkedList::front on an empty LinkedList." };
     return head->getValue();
-}
-
-void LinkedList::extend(const LinkedList& linked_list)
-{
-    Node* item { linked_list.head };
-
-    for (int i {}; i < linked_list.getSize(); i++) {
-        this->push_back(item->getValue());
-        item = item->next;
-    }
 }
 
 bool LinkedList::empty()
@@ -175,18 +145,43 @@ bool LinkedList::empty()
 
 void LinkedList::clear()
 {
-    while (!this->empty()) {
+    while (!empty()) {
         this->pop_back();
     }
 }
 
-double& LinkedList::operator[](size_t idx)
+void LinkedList::show() const
 {
-    if (N == 0 || idx >= N)
+    Node* item { head };
+    for (int i {}; i < N; i++) {
+        std::cout << *item << " ";
+        item = item->next;
+    }
+    std::cout << std::endl;
+}
+
+int LinkedList::getSize() const
+{
+    return N;
+}
+
+void LinkedList::extend(const LinkedList& linked_list)
+{
+    Node* item { linked_list.head };
+
+    for (int i {}; i < linked_list.getSize(); i++) {
+        this->push_back(item->getValue());
+        item = item->next;
+    }
+}
+
+double& LinkedList::operator[](int idx)
+{
+    if (N == 0 || idx >= N || idx < 0)
         throw std::logic_error { "Index is out of range!" };
     else {
         Node* node = head;
-        for (size_t i {}; i < idx; i++)
+        for (int i {}; i < idx; i++)
             node = node->next;
 
         return node->getValue();
