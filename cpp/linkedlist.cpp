@@ -25,6 +25,11 @@ double LinkedList::Node::getValue() const
     return value;
 }
 
+double& LinkedList::Node::getValue()
+{
+    return value;
+}
+
 void LinkedList::Node::setValue(double val)
 {
     value = val;
@@ -64,20 +69,13 @@ int LinkedList::getSize() const
 
 LinkedList::~LinkedList()
 {
-    // if (head == tail) {
-    //     delete head;
-    //     tail = head = nullptr;
-    // } else {
-    //     delete head;
-    //     delete tail;
-    //     tail = head = nullptr;
-    // }
+    this->clear();
 }
 
 void LinkedList::show() const
 {
     Node* item { head };
-    for (int i {}; i < N; i++) {
+    for (size_t i {}; i < N; i++) {
         std::cout << *item << " ";
         item = item->next;
     }
@@ -117,9 +115,14 @@ double LinkedList::pop_back()
 
     double popped {};
     popped = tail->getValue();
-    tail = tail->previous;
-    delete tail->next;
-    tail->next = nullptr;
+    if (tail->previous) {
+        tail = tail->previous;
+        delete tail->next;
+        tail->next = nullptr;
+    } else {
+        delete tail;
+        head = tail = nullptr;
+    }
     N--;
     return popped;
 }
@@ -159,5 +162,33 @@ void LinkedList::extend(const LinkedList& linked_list)
     for (int i {}; i < linked_list.getSize(); i++) {
         this->push_back(item->getValue());
         item = item->next;
+    }
+}
+
+bool LinkedList::empty()
+{
+    if (N == 0)
+        return true;
+    else
+        return false;
+}
+
+void LinkedList::clear()
+{
+    while (!this->empty()) {
+        this->pop_back();
+    }
+}
+
+double& LinkedList::operator[](size_t idx)
+{
+    if (N == 0 || idx >= N)
+        throw std::logic_error { "Index is out of range!" };
+    else {
+        Node* node = head;
+        for (size_t i {}; i < idx; i++)
+            node = node->next;
+
+        return node->getValue();
     }
 }

@@ -14,6 +14,7 @@ public:
         Node* next;
         Node* previous;
         double getValue() const;
+        double& getValue();
         void setValue(double);
         friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 
@@ -35,9 +36,11 @@ public:
     void show() const;
     int getSize() const;
     void extend(const LinkedList&);
+    // double operator[](size_t) const;
+    double& operator[](size_t);
 
 private:
-    int N { 0 };
+    size_t N {};
 
 public:
     Node* head;
