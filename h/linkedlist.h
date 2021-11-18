@@ -1,3 +1,9 @@
+/* AP1400 HW3
+ * Name: Mohammad Arabzadeh
+ * ID: 9723055
+ * Email: a.mohamad7824@gmail.com
+ */
+
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include <initializer_list>
