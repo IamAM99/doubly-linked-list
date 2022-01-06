@@ -13,13 +13,14 @@
 class LinkedList {
 public:
     class Node {
+        friend class LinkedList;
+
     public:
         Node();
         Node(double);
         Node* next;
         Node* previous;
         double getValue() const;
-        double& getValue();
         void setValue(double);
         friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 

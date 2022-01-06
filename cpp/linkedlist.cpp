@@ -26,12 +26,6 @@ double LinkedList::Node::getValue() const
     return value;
 }
 
-// Returns a reference to 'value'. Will be used mainly for the bracket operator.
-double& LinkedList::Node::getValue()
-{
-    return value;
-}
-
 // Sets 'value' to the input.
 void LinkedList::Node::setValue(double val)
 {
@@ -203,6 +197,6 @@ double& LinkedList::operator[](int idx)
         for (int i {}; i < idx; i++, node = node->next)
             ;
 
-        return node->getValue();
+        return node->value;
     }
 }
