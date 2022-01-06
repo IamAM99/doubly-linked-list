@@ -1,58 +1,59 @@
-<center>
-<h1>
-In The Name Of God
-</h1>
-<h2>
-Advanced Programming - Homework 3
-</h2>
-<h2>
-Dr.Amir Jahanshahi
-</h2>
-<h3>
-Deadline: Saturday, 22 Aban - 23:59
-</center>
+# Doubly Linked List Data Structure In C++
+**University:** Amirkabir University of Tehran  
+**Course:** Advanced Programming  
+**Instructor:** Dr. Amir Jahanshahi
 
-Hello
-# Introduction
-In this homework you should implement linked-list data structure with c++.
-![](./pics/linkedlist.png)
-# LinkedList Class
-This class represents each LinkedList. It has the following method and member variables.
+**Student:** Mohammad Arabzadeh  
+**Email:** a.mohamad7824@gmail.com  
+## Introduction
+In this project, I've implemented the doubly linked list data structure in c++.  
+<p align="center">
+        <img src="./pics/linkedlist.png" linkedlist><br>
+        <em>A basic layout of the doubly linked list. Image from <a href="https://www.softwaretestinghelp.com/doubly-linked-list-2/">softwaretestinghelp</a>.</em>
+</p>
+
+## LinkedList Class
+This class represents each LinkedList object. It has the following methods and member variables.
 ```c++
 class LinkedList {
 public:
     class Node {
     public:
         Node();
-        Node(double );
-        Node *next;
-        Node *previous;
-        double getValue();
+        Node(double);
+        Node* next;
+        Node* previous;
+        double getValue() const;
+        double& getValue();
         void setValue(double);
+        friend std::ostream& operator<<(std::ostream& stream, const Node& node);
+
     private:
         double value;
     };
     LinkedList();
-    LinkedList(const LinkedList &);
+    LinkedList(std::initializer_list<double>);
+    LinkedList(const LinkedList&);
     ~LinkedList();
     void push_back(double);
     void push_front(double);
     double pop_back();
     double pop_front();
-    double back();
-    double front();
+    double back() const;
+    double front() const;
     bool empty();
     void clear();
-    void show();
-    int getSize();
-    void extend(const LinkedList &);
+    void show() const;
+    int getSize() const;
+    void extend(const LinkedList&);
+    double& operator[](int);
+
 private:
-    int N{0};
+    int N {};
+
 public:
-    Node *head;
-    Node *tail;
+    Node* head;
+    Node* tail;
 };
-```
-```LinkedList``` class is a nested class and it means that we define class inside another class. ```LinkedList``` class has ```Node``` class. As you can see,  definition of ```Node``` class is inside of ```LinkedList``` class.
- 
-DO NOT change main.cpp.
+```  
+```Node``` class is a nested class, which means that we have defined the class inside another class.
